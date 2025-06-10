@@ -4,15 +4,23 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = ListNode(0, head)
-        left = dummy 
-        right = head
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None or head.next is None:
+            return head 
 
-        while right and right.next:
-            left = left.next 
-            right = right.next.next 
         
-        left.next = left.next.next 
+        odd = head 
+        even = head.next 
 
-        return dummy.next
+        evenhead = even 
+
+        while even and even.next:
+            odd.next = even.next 
+            odd = odd.next 
+
+            even.next = odd.next 
+            even = even.next 
+        
+        odd.next = evenhead
+
+        return head  

@@ -1,15 +1,21 @@
-def removestars(s):
+def astroidCollsision(astroids):
     
-    stack = []
+    res = []
     
-    for i in s:
-        if i == "*":
-            if stack:
-                stack.pop()
+    for a in astroids:
+        
+        while res and a<0<res[-1]:
+            if -a > res[-1]:
+                res.pop()
+                continue 
+                
+            elif -a == res[-1]:
+                res.pop()
+                
+            break 
         else:
-            stack.append(i)
+            res.append(a)
     
-    return "".join(stack)
 
-s = input()
-print(removestars(s))
+astroids = list(map(int, input().split()))
+print(astroidCollsision(astroids))

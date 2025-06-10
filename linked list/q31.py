@@ -4,23 +4,14 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if head is None or head.next is None:
-            return head 
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None 
+        curr = head
 
+        while curr:
+            temp = curr.next
+            curr.next = prev 
+            prev = curr 
+            curr = temp
         
-        odd = head 
-        even = head.next 
-
-        evenhead = even 
-
-        while even and even.next:
-            odd.next = even.next 
-            odd = odd.next 
-
-            even.next = odd.next 
-            even = even.next 
-        
-        odd.next = evenhead
-
-        return head  
+        return prev

@@ -1,14 +1,48 @@
-class RecentCounter:
+from collections import deque
+
+def predictvictory(senate):
     
-    def __init__(self):
-        self.records = []
-        self.start = 0 
+    res = deque(senate)
+    count = 0 
     
-    
-    def ping(self, t: int) -> int:
-        self.records.append(t)
+    while True:
+        rcount = 0 
+        dcount = 0 
         
-        while self.records[self.start] < t-3000:
-            self.start += 1
+        newq = deque()
         
-        return len(self.records) - self.start 
+        n = len(res)
+        
+        for _ in range(n):
+            ch = res.popleft()
+            
+            if ch == 'R':
+                if count < 0:
+                    count += 1 
+                    continue
+                
+                else:
+                    count += 1 
+                    rcount += 1 
+                    newq.append('R')
+            
+            else:
+                if count > 0:
+                    count -= 1
+                    continue
+                
+                else:
+                    count -= 1 
+                    dcount += 1 
+                    newq.append('D')
+        
+        if rcount == 0:
+            return 'Dire'
+        
+        if dcount == 0:
+            return 'Radiant'
+        
+        res = newq
+
+senate = input()
+print(predictvictory(senate))

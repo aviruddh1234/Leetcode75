@@ -4,14 +4,29 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        slow = head 
+        fast = head 
+
+        res = 0 
+
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next 
+        
+        curr = slow 
         prev = None 
-        curr = head
 
         while curr:
-            temp = curr.next
+            temp = curr.next 
             curr.next = prev 
             prev = curr 
             curr = temp
         
-        return prev
+        while prev:
+            res = max(res, head.val + prev.val)
+            prev = prev.next 
+            head = head.next
+        
+        return res
+        
